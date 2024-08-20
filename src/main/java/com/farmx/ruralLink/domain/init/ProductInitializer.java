@@ -39,15 +39,15 @@ public class ProductInitializer implements CommandLineRunner {
         Product product1 = new Product();
         product1.setName("Product 1");
         product1.setBody("Description of Product 1");
-        product1.setCultivate_At(LocalDate.now());
-        product1.setMemberId(1);
+        product1.setCultivate_At(LocalDate.of(1992, 12, 5));
+        //product1.setMemberId(1);
         product1.setCategoryId(1);
 
         Product product2 = new Product();
         product2.setName("Product 2");
         product2.setBody("Description of Product 2");
         product2.setCultivate_At(LocalDate.now());
-        product2.setMemberId(2);
+        //product2.setMemberId(2);
         product2.setCategoryId(2);
 
         productRepository.save(product1);

@@ -1,10 +1,10 @@
 package com.farmx.ruralLink.dto;
 
 import com.farmx.ruralLink.domain.Product;
-import com.farmx.ruralLink.domain.ProductImage;
 import com.farmx.ruralLink.domain.ProductOption;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,7 +18,8 @@ public class ProductRequest {
     private LocalDate cultivateAt;
     private Integer memberId;
     private Integer categoryId;
-    private List<ProductImageRequest> images;
+    // 이미지를 URL 대신 MultipartFile로 받음
+    private List<MultipartFile> images;
     private List<ProductOptionRequest> options;
 
     public Product toProduct() {
@@ -26,15 +27,9 @@ public class ProductRequest {
         product.setName(this.name);
         product.setBody(this.body);
         product.setCultivate_At(this.cultivateAt);
-        product.setMemberId(this.memberId);
+        //product.setMemberId(this.memberId);
         product.setCategoryId(this.categoryId);
         return product;
-    }
-
-    public List<ProductImage> toProductImages() {
-        return this.images.stream()
-                .map(ProductImageRequest::toProductImage)
-                .collect(Collectors.toList());
     }
 
     public List<ProductOption> toProductOptions() {
@@ -43,23 +38,6 @@ public class ProductRequest {
                 .collect(Collectors.toList());
     }
 }
-
-@Getter
-@Setter
-class ProductImageRequest {
-    private String url1;
-    private String url2;
-    private String url3;
-
-    public ProductImage toProductImage() {
-        ProductImage image = new ProductImage();
-        image.setUrl1(this.url1);
-        image.setUrl2(this.url2);
-        image.setUrl3(this.url3);
-        return image;
-    }
-}
-
 @Getter
 @Setter
 class ProductOptionRequest {

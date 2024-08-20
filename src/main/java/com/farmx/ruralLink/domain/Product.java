@@ -28,18 +28,28 @@ public class Product {
     private String body;
 
     private LocalDate cultivate_At;
-
-    @Column(name = "member_id", nullable = false)
-    private Integer memberId;
+//
+//    @Column(name = "member_id", nullable = false)
+//    private Integer memberId;
 
     @Column(name = "category_id", nullable = false)
     private Integer categoryId;
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> images;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductOption> options;
+
+    @PrePersist
+    @PreUpdate
+    protected void onSaveOrUpdate() {
+        this.createdAt = LocalDateTime.now();
+    }
 
 
 }
