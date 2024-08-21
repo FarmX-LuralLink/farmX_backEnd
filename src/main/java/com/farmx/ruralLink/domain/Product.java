@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -13,7 +14,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(length = 100, nullable = false)
     private String name;
+
+    @Column(length = 10000)
     private String body;
     private LocalDate cultivateAt;
 
@@ -23,9 +27,19 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category lowerCategory;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private ProductOption productOption;
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private ProductImage productImage;
+
+    @PrePersist
+    @PreUpdate
+    protected void onSaveOrUpdate() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
