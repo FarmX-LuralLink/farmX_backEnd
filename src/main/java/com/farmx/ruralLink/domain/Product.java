@@ -3,7 +3,6 @@ package com.farmx.ruralLink.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,6 +18,7 @@ public class Product {
 
     @Column(length = 10000)
     private String body;
+
     private LocalDate cultivateAt;
 
     private int upperCategory;  // 0: 채소, 1: 과일
@@ -29,7 +29,6 @@ public class Product {
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private ProductOption productOption;
@@ -42,4 +41,12 @@ public class Product {
     protected void onSaveOrUpdate() {
         this.createdAt = LocalDateTime.now();
     }
+
 }
+
+
+
+
+
+
+

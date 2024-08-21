@@ -26,7 +26,6 @@ public class ProductService {
     private final ProductImageRepository productImageRepository;
     private final ProductOptionRepository productOptionRepository;
     private final S3Service s3Service;
-
     public List<ProductDTO> getAllProducts() {
         return productRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
@@ -63,7 +62,6 @@ public class ProductService {
 
         return savedProduct;
     }
-
     private ProductDTO convertToDTO(Product product) {
         return new ProductDTO(
                 product.getId(),

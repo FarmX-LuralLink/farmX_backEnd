@@ -59,4 +59,5 @@ public class ProductController {
         Product createdProduct = productService.createProduct(product, productRequest.getImages(), options);
         return ResponseEntity.ok(createdProduct);
     }
+
 }

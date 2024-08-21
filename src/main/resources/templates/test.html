@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Upload</title>
+</head>
+<body>
+<h1>Upload Product</h1>
+<form th:action="@{/ruralLink/products/info}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="product_name">Product Name:</label>
+        <select id="product_name" name="product_name" required>
+            <optgroup label="채소">
+                <option th:each="vegetable : ${product_list['채소']}" th:value="${vegetable}" th:text="${vegetable}"></option>
+            </optgroup>
+            <optgroup label="과일">
+                <option th:each="fruit : ${product_list['과일']}" th:value="${fruit}" th:text="${fruit}"></option>
+            </optgroup>
+        </select>
+    </div>
+    <div>
+        <label for="body">Description:</label>
+        <textarea id="body" name="body" required></textarea>
+    </div>
+    <div>
+        <label for="cultivateAt">Cultivate Date:</label>
+        <input type="date" id="cultivateAt" name="cultivateAt" required>
+    </div>
+<!--    <div>-->
+<!--        <label for="memberId">Member ID:</label>-->
+<!--        <input type="number" id="memberId" name="memberId" required>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="categoryId">Category ID:</label>-->
+<!--        <input type="number" id="categoryId" name="categoryId" required>-->
+<!--    </div>-->
+    <div>
+        <label for="images">Product Images:</label>
+        <input type="file" id="images" name="images" multiple required>
+    </div>
+    <hr>
+    <h3>Product Options</h3>
+    <div>
+        <label for="minVolume">Minimum Volume:</label>
+        <input type="text" id="minVolume" name="minVolume" required>
+    </div>
+    <div>
+        <label for="unitPrice">Unit Price:</label>
+        <input type="number" id="unitPrice" name="options[0].unitPrice" required>
+    </div>
+    <div>
+        <label for="isOrganic">Is Organic:</label>
+        <select id="isOrganic" name="options[0].isOrganic" required>
+            <option value="true">Yes</option>
+            <option value="false">No</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Upload Product</button>
+    </div>
+</form>
+</body>
+</html>

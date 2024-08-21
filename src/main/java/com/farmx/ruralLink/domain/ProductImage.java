@@ -13,6 +13,7 @@ public class ProductImage {
     private Long id;
 
     @Column(length = 2083, nullable = false)
+
     private String url1;
 
     @Column(length = 2083)
@@ -25,4 +26,5 @@ public class ProductImage {
     @JoinColumn(name = "product_id")
     @JsonIgnore
     private Product product;
+
 }

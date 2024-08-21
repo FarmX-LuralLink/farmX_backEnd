@@ -1,5 +1,6 @@
 package com.farmx.ruralLink.domain;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,4 +26,5 @@ public class ProductOption {
     @JoinColumn(name = "product_id", nullable = false)
     @JsonIgnore
     private Product product;
+
 }
