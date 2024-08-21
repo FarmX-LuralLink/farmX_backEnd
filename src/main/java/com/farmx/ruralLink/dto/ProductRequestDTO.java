@@ -13,11 +13,11 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ProductRequestDTO {
-    private String name;  // 필드명 수정
+    private String name;
     private String body;
     private LocalDate cultivateAt;
     private List<MultipartFile> images;
-    private List<ProductOptionRequestDTO> options;  // 수정: 올바른 타입 사용
+    private List<ProductOptionRequestDTO> options;
 
     public Product toProduct() {
         Product product = new Product();
@@ -28,9 +28,13 @@ public class ProductRequestDTO {
         return product;
     }
 
-    public List<ProductOption> toProductOptions() {
+    public List<ProductOption> toProductOptions(Product product) { // Product를 매개변수로 받도록 수정
         return this.options.stream()
-                .map(ProductOptionRequestDTO::toProductOption)
+                .map(optionDTO -> {
+                    ProductOption option = optionDTO.toProductOption();
+                    option.setProduct(product); // Product와 연관 설정
+                    return option;
+                })
                 .collect(Collectors.toList());
     }
 }

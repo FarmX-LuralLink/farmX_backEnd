@@ -62,7 +62,7 @@ public class ProductService {
 
         return savedProduct;
     }
-    private ProductDTO convertToDTO(Product product) {
+    public ProductDTO convertToDTO(Product product) {
         return new ProductDTO(
                 product.getId(),
                 product.getName(),

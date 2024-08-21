@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상품 등록</title>
+</head>
+<body>
+<h2>상품 등록</h2>
+
+<label for="upperCategory">농산물 상위 품종 선택:</label>
+<select id="upperCategory" onchange="fetchSubcategories()">
+  <option value="1">채소</option>
+  <option value="2">과일</option>
+</select>
+
+<label for="lowerCategory">농산물 하위 품종 선택:</label>
+<select id="lowerCategory">
+  <option value="">하위 카테고리를 선택하세요</option>
+</select>
+
+<script>
+  function fetchSubcategories() {
+    const upperCategoryId = document.getElementById('upperCategory').value;
+
+    fetch(`/ruralLink/category/subcategories?parentCategoryId=${upperCategoryId}`)
+            .then(response => response.json())
+            .then(data => {
+              const lowerCategorySelect = document.getElementById('lowerCategory');
+              lowerCategorySelect.innerHTML = '';
+
+              data.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.text = category.name;
+                lowerCategorySelect.add(option);
+              });
+            })
+            .catch(error => console.error('Error fetching subcategories:', error));
+  }
+</script>
+</body>
+</html>

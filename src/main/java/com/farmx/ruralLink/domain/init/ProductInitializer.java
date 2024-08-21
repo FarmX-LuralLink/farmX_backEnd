@@ -1,52 +1,65 @@
 package com.farmx.ruralLink.domain.init;
 
 
-
+import com.farmx.ruralLink.domain.Category;
 import com.farmx.ruralLink.domain.Product;
 import com.farmx.ruralLink.domain.ProductImage;
 import com.farmx.ruralLink.domain.ProductOption;
+import com.farmx.ruralLink.repository.CategoryRepository;
 import com.farmx.ruralLink.repository.ProductImageRepository;
 import com.farmx.ruralLink.repository.ProductOptionRepository;
 import com.farmx.ruralLink.repository.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Order(1)
-@Component
+@Order(1) @Component
+@AllArgsConstructor
 public class ProductInitializer implements CommandLineRunner {
 
     private final ProductRepository productRepository;
     private final ProductImageRepository productImageRepository;
     private final ProductOptionRepository productOptionRepository;
-
-    @Autowired
-    public ProductInitializer(ProductRepository productRepository,
-                              ProductImageRepository productImageRepository,
-                              ProductOptionRepository productOptionRepository) {
-        this.productRepository = productRepository;
-        this.productImageRepository = productImageRepository;
-        this.productOptionRepository = productOptionRepository;
-    }
+    private final CategoryRepository categoryRepository;
 
     @Override
     public void run(String... args) throws Exception {
+        // 상위 카테고리 생성
+        Category vegetableCategory = new Category();
+        vegetableCategory.setName("채소");
+        categoryRepository.save(vegetableCategory);
+
+        Category fruitCategory = new Category();
+        fruitCategory.setName("과일");
+        categoryRepository.save(fruitCategory);
+
+        // 하위 카테고리 생성
+        Category carrotCategory = new Category();
+        carrotCategory.setName("당근");
+        carrotCategory.setParentCategory(vegetableCategory);
+        categoryRepository.save(carrotCategory);
+
+        Category appleCategory = new Category();
+        appleCategory.setName("사과");
+        appleCategory.setParentCategory(fruitCategory);
+        categoryRepository.save(appleCategory);
+
         // 더미 데이터 삽입
         Product product1 = new Product();
         product1.setName("Product 1");
         product1.setBody("Description of Product 1");
-        product1.setCultivate_At(LocalDate.of(1992, 12, 5));
+        product1.setCultivateAt(LocalDate.of(1992, 12, 5));
         //product1.setMemberId(1);
         //product1.setCategoryId(1);
 
         Product product2 = new Product();
         product2.setName("Product 2");
         product2.setBody("Description of Product 2");
-        product2.setCultivate_At(LocalDate.now());
+        product2.setCultivateAt(LocalDate.now());
         //product2.setMemberId(2);
         //product2.setCategoryId(2);
 
@@ -70,14 +83,14 @@ public class ProductInitializer implements CommandLineRunner {
         productImageRepository.save(image2);
 
         ProductOption option1 = new ProductOption();
-        option1.setMin_Volume("10");
-        option1.setUnit_Price(1000);
+        option1.setMinVolume("10");
+        option1.setUnitPrice(1000);
         option1.setOrganic(Boolean.TRUE);
         option1.setProduct(product1);
 
         ProductOption option2 = new ProductOption();
-        option2.setMin_Volume("20");
-        option2.setUnit_Price(2000);
+        option2.setMinVolume("20");
+        option2.setUnitPrice(2000);
         option2.setOrganic(Boolean.TRUE);
         option2.setProduct(product2);
 

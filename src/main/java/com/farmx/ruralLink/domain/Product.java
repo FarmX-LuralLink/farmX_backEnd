@@ -18,9 +18,7 @@ public class Product {
 
     @Column(length = 10000)
     private String body;
-
     private LocalDate cultivateAt;
-
     private int upperCategory;  // 0: 채소, 1: 과일
 
     @ManyToOne
@@ -43,10 +41,3 @@ public class Product {
     }
 
 }
-
-
-
-
-
-
-

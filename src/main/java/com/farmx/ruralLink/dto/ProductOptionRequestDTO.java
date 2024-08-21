@@ -9,13 +9,13 @@ import lombok.Setter;
 class ProductOptionRequestDTO {
     private String minVolume;
     private Integer unitPrice;
-    private Boolean isOrganic;
+    private Boolean organic;
 
     public ProductOption toProductOption() {
         ProductOption option = new ProductOption();
         option.setMinVolume(this.minVolume);
         option.setUnitPrice(this.unitPrice);
-        option.setOrganic(this.isOrganic);
+        option.setOrganic(this.organic);
         return option;
     }
 }

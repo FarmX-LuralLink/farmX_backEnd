@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ruralLink/product")
@@ -24,15 +25,25 @@ public class ProductController {
     public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
     }
-
     @GetMapping("/filter")
-    public List<Product> filterProducts(
+    public List<ProductDTO> filterProducts(
             @RequestParam Optional<String> cropType,
             @RequestParam Optional<Boolean> organic,
             @RequestParam Optional<Integer> minPrice,
             @RequestParam Optional<Integer> maxPrice) {
-        return productService.filterProducts(cropType, organic, minPrice, maxPrice);
+        return productService.filterProducts(cropType, organic, minPrice, maxPrice)
+                .stream()
+                .map(productService::convertToDTO)
+                .collect(Collectors.toList());
     }
+//    @GetMapping("/filter")
+//    public List<Product> filterProducts(
+//            @RequestParam Optional<String> cropType,
+//            @RequestParam Optional<Boolean> organic,
+//            @RequestParam Optional<Integer> minPrice,
+//            @RequestParam Optional<Integer> maxPrice) {
+//        return productService.filterProducts(cropType, organic, minPrice, maxPrice);
+//    }
 
 //    @GetMapping("/info")
 //    public String getProductUploadPage(Model model) {
@@ -50,11 +61,12 @@ public class ProductController {
 //
 //        return "/test";
 //    }
+
     @PostMapping("/info")
     public ResponseEntity<Product> createProduct(@ModelAttribute ProductRequestDTO productRequest) throws IOException {
 
         Product product = productRequest.toProduct();
-        List<ProductOption> options = productRequest.toProductOptions();
+        List<ProductOption> options = productRequest.toProductOptions(product);
 
         Product createdProduct = productService.createProduct(product, productRequest.getImages(), options);
         return ResponseEntity.ok(createdProduct);
