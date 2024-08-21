@@ -53,17 +53,14 @@ public class ProductInitializer implements CommandLineRunner {
         product1.setName("Product 1");
         product1.setBody("Description of Product 1");
         product1.setCultivateAt(LocalDate.of(1992, 12, 5));
-        //product1.setMemberId(1);
-        //product1.setCategoryId(1);
+        product1.setLowerCategory(carrotCategory); // 설정된 하위 카테고리 사용
+        productRepository.save(product1);
 
         Product product2 = new Product();
         product2.setName("Product 2");
         product2.setBody("Description of Product 2");
         product2.setCultivateAt(LocalDate.now());
-        //product2.setMemberId(2);
-        //product2.setCategoryId(2);
-
-        productRepository.save(product1);
+        product2.setLowerCategory(appleCategory); // 설정된 하위 카테고리 사용
         productRepository.save(product2);
 
         // Product 1의 이미지와 옵션 데이터 삽입
@@ -96,7 +93,5 @@ public class ProductInitializer implements CommandLineRunner {
 
         productOptionRepository.save(option1);
         productOptionRepository.save(option2);
-
-
     }
 }
