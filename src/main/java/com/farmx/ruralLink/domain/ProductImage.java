@@ -1,20 +1,19 @@
 package com.farmx.ruralLink.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@Setter
-@Getter
 @Entity
+@Getter @Setter
 public class ProductImage {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    @Column(length = 2083)
+    @Column(length = 2083, nullable = false)
+
     private String url1;
 
     @Column(length = 2083)
@@ -23,9 +22,9 @@ public class ProductImage {
     @Column(length = 2083)
     private String url3;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+    @OneToOne
+    @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
-    // getters and setters
 }

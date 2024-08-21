@@ -1,28 +1,30 @@
 package com.farmx.ruralLink.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
 @Entity
+@Getter @Setter
 public class ProductOption {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    private String min_Volume;
+    @Column(nullable = false)
+    private String minVolume;
 
-    private Integer unit_Price;
+    @Column(nullable = false)
+    private int unitPrice;
 
-    private Boolean organic;
+    @Column(nullable = false)
+    private boolean organic;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnore
     private Product product;
 
-    // getters and setters
 }

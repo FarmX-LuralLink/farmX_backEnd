@@ -1,25 +1,17 @@
 package com.farmx.ruralLink.domain;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
-
-
-@Setter
-@Getter
 @Entity
+@Getter @Setter
 public class Product {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(length = 100, nullable = false)
     private String name;
@@ -27,30 +19,28 @@ public class Product {
     @Column(length = 10000)
     private String body;
 
-    private LocalDate cultivate_At;
-//
-//    @Column(name = "member_id", nullable = false)
-//    private Integer memberId;
+    private LocalDate cultivateAt;
 
-//    @Column(name = "category_id", nullable = false)
-//    private Integer categoryId;
+    private int upperCategory;  // 0: 채소, 1: 과일
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category lowerCategory;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    private ProductOption productOption;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductImage> images;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductOption> options;
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    private ProductImage productImage;
 
     @PrePersist
     @PreUpdate
     protected void onSaveOrUpdate() {
         this.createdAt = LocalDateTime.now();
     }
-
 
 }
 
