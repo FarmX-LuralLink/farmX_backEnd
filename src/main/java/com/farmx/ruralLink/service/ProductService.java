@@ -36,14 +36,25 @@ public class ProductService {
         // Product 저장
         Product savedProduct = productRepository.save(product);
 
-        // S3에 이미지 업로드 및 ProductImage 저장
-        for (MultipartFile imageFile : images) {
-            String imageUrl = s3Service.uploadFile(imageFile);
-            ProductImage image = new ProductImage();
-            image.setUrl1(imageUrl);
-            image.setProduct(savedProduct);
-            productImageRepository.save(image);
+        // ProductImage 생성
+        ProductImage productImage = new ProductImage();
+        productImage.setProduct(savedProduct);
+
+        // 최대 3개의 이미지만 처리
+        for (int i = 0; i < images.size() && i < 3; i++) {
+            String imageUrl = s3Service.uploadFile(images.get(i));
+
+            if (i == 0) {
+                productImage.setUrl1(imageUrl);
+            } else if (i == 1) {
+                productImage.setUrl2(imageUrl);
+            } else if (i == 2) {
+                productImage.setUrl3(imageUrl);
+            }
         }
+
+        // ProductImage 저장
+        productImageRepository.save(productImage);
 
         // ProductOption 저장
         for (ProductOption option : options) {
@@ -54,3 +65,4 @@ public class ProductService {
         return savedProduct;
     }
 }
+
