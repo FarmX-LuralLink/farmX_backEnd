@@ -32,8 +32,8 @@ public class Product {
 //    @Column(name = "member_id", nullable = false)
 //    private Integer memberId;
 
-    @Column(name = "category_id", nullable = false)
-    private Integer categoryId;
+//    @Column(name = "category_id", nullable = false)
+//    private Integer categoryId;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

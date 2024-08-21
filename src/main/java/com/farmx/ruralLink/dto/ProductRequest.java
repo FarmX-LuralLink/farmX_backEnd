@@ -13,22 +13,22 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class ProductRequest {
-    private String name;
+    private String product_name;
     private String body;
     private LocalDate cultivateAt;
-    private Integer memberId;
-    private Integer categoryId;
-    // 이미지를 URL 대신 MultipartFile로 받음
+    //private Integer memberId;
+    //private Integer categoryId;
+    // MultipartFile로 받음
     private List<MultipartFile> images;
     private List<ProductOptionRequest> options;
 
     public Product toProduct() {
         Product product = new Product();
-        product.setName(this.name);
+        product.setName(this.product_name);
         product.setBody(this.body);
         product.setCultivate_At(this.cultivateAt);
         //product.setMemberId(this.memberId);
-        product.setCategoryId(this.categoryId);
+       // product.setCategoryId(this.categoryId);
         return product;
     }
 
