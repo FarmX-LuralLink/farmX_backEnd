@@ -70,13 +70,13 @@ public class ProductInitializer implements CommandLineRunner {
         productImageRepository.save(image2);
 
         ProductOption option1 = new ProductOption();
-        option1.setMin_Volume(10);
+        option1.setMin_Volume("10");
         option1.setUnit_Price(1000);
         option1.setOrganic(Boolean.TRUE);
         option1.setProduct(product1);
 
         ProductOption option2 = new ProductOption();
-        option2.setMin_Volume(20);
+        option2.setMin_Volume("20");
         option2.setUnit_Price(2000);
         option2.setOrganic(Boolean.TRUE);
         option2.setProduct(product2);

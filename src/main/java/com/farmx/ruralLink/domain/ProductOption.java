@@ -14,7 +14,7 @@ public class ProductOption {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer min_Volume;
+    private String min_Volume;
 
     private Integer unit_Price;
 

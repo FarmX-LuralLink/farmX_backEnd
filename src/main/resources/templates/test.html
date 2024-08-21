@@ -10,7 +10,14 @@
 <form th:action="@{/ruralLink/products/info}" method="post" enctype="multipart/form-data">
     <div>
         <label for="product_name">Product Name:</label>
-        <input type="text" id="product_name" name="product_name" required>
+        <select id="product_name" name="product_name" required>
+            <optgroup label="채소">
+                <option th:each="vegetable : ${product_list['채소']}" th:value="${vegetable}" th:text="${vegetable}"></option>
+            </optgroup>
+            <optgroup label="과일">
+                <option th:each="fruit : ${product_list['과일']}" th:value="${fruit}" th:text="${fruit}"></option>
+            </optgroup>
+        </select>
     </div>
     <div>
         <label for="body">Description:</label>
@@ -36,7 +43,7 @@
     <h3>Product Options</h3>
     <div>
         <label for="minVolume">Minimum Volume:</label>
-        <input type="number" id="minVolume" name="options[0].minVolume" required>
+        <input type="text" id="minVolume" name="minVolume" required>
     </div>
     <div>
         <label for="unitPrice">Unit Price:</label>

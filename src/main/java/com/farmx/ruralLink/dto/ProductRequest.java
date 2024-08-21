@@ -16,8 +16,7 @@ public class ProductRequest {
     private String product_name;
     private String body;
     private LocalDate cultivateAt;
-    //private Integer memberId;
-    //private Integer categoryId;
+
     // MultipartFile로 받음
     private List<MultipartFile> images;
     private List<ProductOptionRequest> options;
@@ -27,8 +26,7 @@ public class ProductRequest {
         product.setName(this.product_name);
         product.setBody(this.body);
         product.setCultivate_At(this.cultivateAt);
-        //product.setMemberId(this.memberId);
-       // product.setCategoryId(this.categoryId);
+
         return product;
     }
 
@@ -41,9 +39,11 @@ public class ProductRequest {
 @Getter
 @Setter
 class ProductOptionRequest {
-    private Integer minVolume;
+    private String minVolume;
     private Integer unitPrice;
     private Boolean isOrganic;
+
+
 
     public ProductOption toProductOption() {
         ProductOption option = new ProductOption();
